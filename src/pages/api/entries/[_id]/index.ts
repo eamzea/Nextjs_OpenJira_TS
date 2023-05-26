@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import mongoose from 'mongoose';
-import { putEntry, getEntry } from '@/utils/methods';
+import { putEntry, getEntry, deleteEntry } from '@/utils/methods';
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   const { _id } = req.query;
@@ -14,6 +14,8 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       return getEntry(req, res);
     case 'PUT':
       return putEntry(req, res);
+    case 'DELETE':
+      return deleteEntry(req, res);
     default:
       return res.status(405).json({ message: 'Method not allowed' });
   }

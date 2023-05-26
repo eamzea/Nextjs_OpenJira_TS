@@ -1,10 +1,11 @@
+import { useContext } from 'react';
+import Link from 'next/link';
 import { IconButton, Toolbar, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { useContext } from 'react';
 import { UI_CONTEXT, changeTheme, openSidebar } from '@/context/ui';
 
 interface AppBarProps extends MuiAppBarProps {
@@ -48,13 +49,15 @@ const Navbar: React.FC<{ open: boolean }> = ({ open }) => {
         >
           <MenuRoundedIcon />
         </IconButton>
-        <Typography
-          variant='h6'
-          component='div'
-          sx={{ flexGrow: 1 }}
-        >
-          OpenJira
-        </Typography>
+        <Link href='/'>
+            <Typography
+              variant='h6'
+              component='div'
+              sx={{ flexGrow: 1 }}
+            >
+              OpenJira
+            </Typography>
+        </Link>
         <IconButton
           sx={{ ml: 1 }}
           onClick={() => dispatch(changeTheme())}

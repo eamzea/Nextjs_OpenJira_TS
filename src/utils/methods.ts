@@ -31,9 +31,7 @@ export const getEntry = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     return res.status(201).json(result);
-  } catch (error) {
-
-  }
+  } catch (error) {}
 };
 
 export const postEntry = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -64,20 +62,46 @@ export const putEntry = async (req: NextApiRequest, res: NextApiResponse) => {
       const entry = await EntryModel.findById(_id);
 
       if (!entry) {
-        return null
+        return null;
       }
 
       const { description = entry.description, status = entry.status } = req.body;
 
-      const entryUpdated = await EntryModel.findByIdAndUpdate(_id, {description, status}, {runValidators: true, new: true})
+      const entryUpdated = await EntryModel.findByIdAndUpdate(
+        _id,
+        { description, status },
+        { runValidators: true, new: true },
+      );
 
       return entryUpdated;
     });
 
     if (!result) {
-      return res.status(400).json({message: 'Entry does not exist'});
+      return res.status(400).json({ message: 'Entry does not exist' });
     }
 
     return res.status(201).json(result);
+  } catch (error) {}
+};
+
+export const deleteEntry = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { _id } = req.query;
+
+  try {
+    await handleConnection(async () => {
+      const entry = await EntryModel.findById(_id);
+
+      if (!entry) {
+        return null;
+      }
+
+      const entryUpdated = await EntryModel.findByIdAndDelete(
+        _id
+      );
+
+      return;
+    });
+
+    return res.status(201).json({message: 'Entry deleted successfully'});
   } catch (error) {}
 };

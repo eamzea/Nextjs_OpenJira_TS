@@ -16,3 +16,8 @@ export const loadInitialEntries = (entries: ENTRY_INTERFACE[]): ACTION_TYPE => (
   type: 'Get Entries',
   payload: {entries}
 })
+
+export const deleteEntry = (id: string): ACTION_TYPE => ({
+  type: 'Delete Entry',
+  payload: {id}
+})

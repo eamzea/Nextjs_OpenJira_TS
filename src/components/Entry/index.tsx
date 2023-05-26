@@ -1,5 +1,6 @@
 import { UI_CONTEXT, toggleDragging } from '@/context/ui';
 import { ENTRY_INTERFACE } from '@/types';
+import { getTimeFromNow } from '@/utils/dates';
 import { Card, CardActionArea, CardActions, CardContent, Typography } from '@mui/material';
 import React, { DragEvent, useContext } from 'react';
 
@@ -26,7 +27,7 @@ const Entry: React.FC<EntryProps> = ({ entry }) => {
           <Typography sx={{ whiteSpace: 'pre-line' }}>{entry.description}</Typography>
         </CardContent>
         <CardActions sx={{ display: 'flex', justifyContent: 'end' }}>
-          <Typography variant='body2'>15 min ago</Typography>
+          <Typography variant='body2'>{getTimeFromNow(entry.createdAt)}</Typography>
         </CardActions>
       </CardActionArea>
     </Card>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { DragEvent, useContext, useMemo } from 'react';
 import { Paper, List as MuiList } from '@mui/material';
 import Entry from '../Entry';
@@ -23,7 +24,7 @@ const List: React.FC<ListProps> = ({ status, isAdding }) => {
     const id = event.dataTransfer.getData('entry');
 
     const { data } = await baseEntriesApi.put<ENTRY_INTERFACE>(`/entries/${id}`, {
-        status
+      status,
     });
 
     dispatch(updateEntryStatus(data));
@@ -48,10 +49,12 @@ const List: React.FC<ListProps> = ({ status, isAdding }) => {
       >
         <MuiList sx={{ opacity: 1, padding: '0.5rem' }}>
           {currentEntries.map(card => (
-            <Entry
+            <Link
+              href={`entry/${card._id}`}
               key={card._id}
-              entry={card}
-            />
+            >
+                <Entry entry={card} />
+            </Link>
           ))}
         </MuiList>
       </Paper>
